@@ -1,5 +1,6 @@
+import java.util.*;
 public class Cell {
-  ArrayList<PVector> border = new ArrayList<PVector>();
+  LinkedList<PVector> border = new LinkedList<PVector>();
   color colorCode;
   int extent = 1;
   int energy;
@@ -11,30 +12,61 @@ public class Cell {
   
   public void spread(){
     if (border.size() != 0){
-    border = expand(border);
+    border = expand();
     }
   }
-  public ArrayList<PVector> expand(ArrayList<PVector> bounds) {
-    ArrayList<PVector> newB = new ArrayList<PVector>();
-    for (PVector i : bounds) {
-      if (i.y - 1 >= 0 && colorCode != p[((int) i.y - 1) * w + (int) i.x]) {
+  
+  public LinkedList expand() {
+    LinkedList<PVector> newB = new LinkedList<PVector>();
+            
+    Iterator<PVector> iterator = border.iterator();
+    while (iterator.hasNext()) {
+      PVector i = iterator.next();
+      if (i.y - 1 >= 0 && #FFFFFF == p[((int) i.y - 1) * w + (int) i.x]) {
         p[((int) i.y - 1) * w + (int) i.x] = colorCode;
         newB.add(new PVector(i.x, i.y - 1));
       }
-      if (i.y + 1 < h && colorCode != p[((int) i.y + 1) * w + (int) i.x]) {
+      if (i.y + 1 < h && #FFFFFF == p[((int) i.y + 1) * w + (int) i.x]) {
         p[((int) i.y + 1) * w + (int) i.x] = colorCode;
         newB.add(new PVector(i.x, i.y + 1));
       }
-      if (i.x - 1 >= 0 && colorCode != p[((int) i.y) * w + (int) i.x - 1]) {
+      if (i.x - 1 >= 0 && #FFFFFF == p[((int) i.y) * w + (int) i.x - 1]) {
         p[((int) i.y) * w + (int) i.x - 1] = colorCode;
         newB.add(new PVector(i.x - 1, i.y));
       }
-      if (i.x + 1 < w && colorCode!= p[((int) i.y) * w + (int) i.x + 1]) {
+      if (i.x + 1 < w && #FFFFFF == p[((int) i.y) * w + (int) i.x + 1]) {
         p[((int) i.y) * w + (int) i.x + 1] = colorCode;
         newB.add(new PVector(i.x + 1, i.y));
       }
     }
     extent += newB.size();
     return newB;
+  }
+  
+  
+  public void invade(LinkedList bounds, color ENEMY) {
+    LinkedList<PVector> newB = new LinkedList<PVector>();
+            
+    Iterator<PVector> iterator = bounds.iterator();
+    while (iterator.hasNext()) {
+      PVector i = iterator.next();
+      if (i.y - 1 >= 0 && ENEMY == p[((int) i.y - 1) * w + (int) i.x]) {
+        p[((int) i.y - 1) * w + (int) i.x] = colorCode;
+        border.add(new PVector(i.x, i.y - 1));
+      }
+      if (i.y + 1 < h && ENEMY == p[((int) i.y + 1) * w + (int) i.x]) {
+        p[((int) i.y + 1) * w + (int) i.x] = colorCode;
+        border.add(new PVector(i.x, i.y - 1));
+      }
+      if (i.x - 1 >= 0 && ENEMY == p[((int) i.y) * w + (int) i.x - 1]) {
+        p[((int) i.y) * w + (int) i.x - 1] = colorCode;
+        border.add(new PVector(i.x, i.y - 1));
+      }
+      if (i.x + 1 < w && ENEMY == p[((int) i.y) * w + (int) i.x + 1]) {
+        p[((int) i.y) * w + (int) i.x + 1] = colorCode;
+        border.add(new PVector(i.x, i.y - 1));
+      }
+      border.remove(i);
+    }
   }
 }
