@@ -8,6 +8,7 @@ public class Cell {
     border.add(pos);
     colorCode = c;
     energy = e;
+    p[(int) pos.y * w + (int) pos.x] = colorCode;
   }
   
   public void spread(){
