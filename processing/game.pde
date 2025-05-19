@@ -3,7 +3,7 @@ int h;
 int size2;
 color[] p;
 Cell[] cells = new Cell[10];
-;
+
 void setup() {
   size(800, 600);
   size2 = 20;
