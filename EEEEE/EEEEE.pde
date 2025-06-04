@@ -5,7 +5,7 @@ Events processes;
 Player one;
 
 int[] stats;
-Inputs interfaces = new Inputs();
+Inputs interfaces;
 
 
 int ticks = 0;
@@ -23,7 +23,7 @@ int BOTResourceCap = 200;
 
 void setup() {
   stats = new int[10];
-
+  interfaces = new Inputs();
   interfaces.add(new Input(20, 30, 50, 60, #FFFFFF, "speedPlayer"));
   interfaces.add(new Input(70, 90, 50, 60, #FFFFFF, "slowPlayer"));
   interfaces.add(new Input(120, 150, 50, 60, #FFF00F, "incResource"));
