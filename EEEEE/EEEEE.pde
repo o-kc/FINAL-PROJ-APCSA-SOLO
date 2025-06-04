@@ -3,6 +3,8 @@ Bullets projectiles = new Bullets();
 Animations animate;
 Events processes;
 Player one;
+
+int[] stats;
 Inputs interfaces = new Inputs();
 
 
@@ -20,16 +22,18 @@ int BOTResourceCap = 200;
 
 
 void setup() {
+  stats = new int[10];
+
   interfaces.add(new Input(20, 30, 50, 60, #FFFFFF, "speedPlayer"));
   interfaces.add(new Input(70, 90, 50, 60, #FFFFFF, "slowPlayer"));
-  interfaces.add(new Input(120, 150, 50, 60, #FFFFFF, "incBoost"));
-  interfaces.add(new Input(170, 210, 50, 60, #FFFFFF, "decBoost"));
-  interfaces.add(new Input(220, 30, 50, 60, #FFFFFF, "incResource"));
-  interfaces.add(new Input(270, 90, 50, 60, #FFFFFF, "decResource"));
-  interfaces.add(new Input(320, 150, 50, 60, #FFFFFF, "incSHIELD"));
-  interfaces.add(new Input(370, 210, 50, 60, #FFFFFF, "decSHIELD"));
-  interfaces.add(new Input(420, 150, 50, 60, #FFFFFF, "incManeuver"));
-  interfaces.add(new Input(470, 210, 50, 60, #FFFFFF, "decManeuver"));
+  interfaces.add(new Input(120, 150, 50, 60, #FFF00F, "incResource"));
+  interfaces.add(new Input(170, 210, 50, 60, #FFF00F, "decResource"));
+  interfaces.add(new Input(220, 270, 50, 60, #F0F0FF, "incSHIELD"));
+  interfaces.add(new Input(270, 330, 50, 60, #F0F0FF, "decSHIELD"));
+  interfaces.add(new Input(320, 390, 50, 60, #F00F00, "incBoost"));
+  interfaces.add(new Input(370, 450, 50, 60, #F00F00, "decBoost"));
+  interfaces.add(new Input(420, 510, 50, 60, #00FFF0, "incManeuver"));
+  interfaces.add(new Input(470, 570, 50, 60, #00FFF0, "decManeuver"));
   size(800, 800);
   ships = new ArrayList<Bot>();
   animate = new Animations();
@@ -45,20 +49,24 @@ void setup() {
   int resourceCap = 100;
 
   one = new Player(playerPosition, initialVelocity, speedLimit, acceleration, health, initialResource, resourceCap);
-
+  stats[0] = one.getMaxSpeed();
+  stats[1] = one.getResourceCap();
+  stats[2] = one.getHP();
+  stats[3] = one.getBoostSetting();
+  stats[4] = one.getManeuver();
+  
   Animation e = new Shield(2000, one.getPos(), 50, 0.05, #00FF00);
-   
+
   animate.add(e);  //duration, pos, size, x-increment
-   
 }
 
 void draw() {
-   
+ 
   if (UI) {
     background(0);
     drawUI();
   } else {
-    background(0);
+    background(100);
 
     move();
 
@@ -127,21 +135,27 @@ void mousePressed() {
     switch(interfaces.check(mouseX, mouseY)) {
     case "speedPlayer":
       one.setMaxSpeed(one.getMaxSpeed() + 1);
+      stats[0] = one.getMaxSpeed();
       break;
     case "slowPlayer":
       one.setMaxSpeed(one.getMaxSpeed() - 1);
+      stats[0] = one.getMaxSpeed();
       break;
     case "incResource":
       one.setResourceCap(one.getResourceCap() + 100);
+      stats[1] = one.getResourceCap();
       break;
     case "decResource":
       one.setResourceCap(one.getResourceCap() - 100);
+      stats[1] = one.getResourceCap();
       break;
     case "incSHIELD":
       one.setHP(one.getHP() + 100);
+      stats[2] = one.getHP();
       break;
     case "decSHIELD":
       one.setHP(one.getHP() - 100);
+      stats[2] = one.getHP();
       break;
     case "pressed invalid region!!!":
       for (int i = 0; i < 10; i++) {
@@ -149,15 +163,19 @@ void mousePressed() {
       }
     case "incBoost":
       one.setBoostSetting(one.getBoostSetting() + 1);
+      stats[3] = one.getBoostSetting();
       break;
     case "decBoost":
       one.setBoostSetting(one.getBoostSetting() - 1);
+      stats[3] = one.getBoostSetting();
       break;
     case "incManeuver":
       one.setManeuver(one.getManeuver() + 1);
+      stats[4] = one.getManeuver();
       break;
     case "decManeuver":
       one.setManeuver(one.getManeuver() - 1);
+      stats[4] = one.getManeuver();
       break;
     }
   }
