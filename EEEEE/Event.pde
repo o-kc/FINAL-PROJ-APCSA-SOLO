@@ -11,6 +11,10 @@ public abstract class Event {
   public int getD() {
     return duration;
   }
+  
+ public void setD(int d) {
+    duration = d;
+  }
 
   public void decay() {
     duration--;

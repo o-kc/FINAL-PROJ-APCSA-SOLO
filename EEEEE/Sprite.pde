@@ -49,10 +49,16 @@ class Sprite extends Moveable {
   }
 
   void boost(int f) {
-    if (processes.getSize() == 0 && resources >= 50) {
+    if (resources >= 50) {
+      if (processes.getSize() == 0){
       processes.add(new Burst(20, f));
+      }
+      else{
+        processes.get(0).setD(processes.get(0).getD() + 50);
+      }
       resources -= 50;
     }
+    
   }
 
   void arrowHead() {

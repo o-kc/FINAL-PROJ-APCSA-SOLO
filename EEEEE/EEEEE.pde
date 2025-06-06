@@ -66,10 +66,10 @@ void draw() {
     background(0);
     drawUI();
   } else {
-    background(100);
+    background(10);
 
     move();
-
+           
     if (one.getHP() <= 0) {
       delay(500);
       setup();
@@ -89,8 +89,13 @@ void move() {
   for (Bot b : ships) {
     b.move(one.getPos());
   }
-
+ 
   projectiles.move();
+  
+  if (ticks % 2 == 0){
+  stats[2] = one.getHP();
+  }
+  ticks++;
 }
 
 void drawBars() {
@@ -100,7 +105,7 @@ void drawBars() {
   rect(0, 0, one.getHP(), 10);
   fill(#FFFF00);
   rect(0, 10, one.getResource()*5, 10);
-  ticks++;
+
 }
 
 void drawUI() {
