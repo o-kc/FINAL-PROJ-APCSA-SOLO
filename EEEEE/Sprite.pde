@@ -11,11 +11,10 @@ class Sprite extends Moveable {
   }
 
   void shoot() {
-    if (resources >= 20){
-    projectiles.add(new Bullet(pos.copy(), v.copy().normalize().mult(5), 30, 5));
-    resources -= 20;
+    if (resources >= 20) {
+      projectiles.add(new Bullet(pos.copy(), v.copy().normalize().mult(5), 30, 5));
+      resources -= 20;
     }
-    
   }
 
   void setHP(int health) {
@@ -34,7 +33,7 @@ class Sprite extends Moveable {
     return resourceCap;
   }
 
- 
+
   void setResourceCap(int r) {
     resourceCap = r;
   }
@@ -49,16 +48,14 @@ class Sprite extends Moveable {
   }
 
   void boost(int f) {
-    if (resources >= 50) {
-      if (processes.getSize() == 0){
-      processes.add(new Burst(20, f));
+    if (resources >= 40) {
+      if (processes.getSize() == 0) {
+        processes.add(new Burst(20, f));
+      } else {
+        processes.get(0).setD(processes.get(0).getD() + 20);
       }
-      else{
-        processes.get(0).setD(processes.get(0).getD() + 50);
-      }
-      resources -= 50;
+      resources -= 40;
     }
-    
   }
 
   void arrowHead() {
