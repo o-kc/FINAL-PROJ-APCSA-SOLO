@@ -18,8 +18,8 @@ public class Inputs {
       fill(j.getHue());
       rect(j.getX(), j.getY(), j.getWidth(), j.getHeight());
       fill(#FFFF00);
-      textSize(j.getWidth() / 4);
-      text(j.getMethodCode(), j.getX(), j.getY());
+      textSize(j.getWidth() / 2);
+      text(j.getMethodCode() + " " + stats[i/2], j.getX(), j.getY());
     }
   }
 
