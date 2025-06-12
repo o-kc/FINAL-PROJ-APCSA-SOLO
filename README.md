@@ -1,4 +1,1 @@
-
-THIS IS TEMPORARY AND THE CODE HERE MAY NOT GET USED IN THE FINAL PRODUCT
-
-APCSA final project in processing. Name WIP.
+APCSA final project: plane game
